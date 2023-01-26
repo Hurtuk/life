@@ -1,0 +1,12 @@
+<div class="ranges">
+
+</div>
+<div class="line">
+    <ng-container *ngFor="let y of getMonths()">
+        <span class="year">{{ y.year }}</span> 
+        <span *ngFor="let m of y.months" [style]="'flex: ' +  m.days">{{ m.name }}</span>
+    </ng-container>
+</div>
+<div class="chapters">
+
+</div>
