@@ -29,15 +29,13 @@ export class TimelinePageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-          const type = params.get('type');
-          this.displayRoles = this.DISPLAY_ROLES[type];
-          return this.lifeService.getData({ type });
-      }))
-      .subscribe(data => {
-          this.data = data;
+    this.route.params.subscribe(params => {
+      delete this.data;
+      const type = params.type;
+      this.displayRoles = this.DISPLAY_ROLES[type];
+      this.lifeService.getData({ type }).subscribe(data => {
+        this.data = data;
       })
+    })
   }
-
 }

@@ -7,4 +7,5 @@ export class Range {
     structure: string;
     tags: string[];
     comment: string;
+    icon: string;
 }

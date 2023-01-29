@@ -19,8 +19,8 @@ export class TimelineComponent implements OnInit {
 
 	public maxLevel = 0;
 
-	private startDate = new Date();
-	private endDate = new Date();
+	private startDate: Date;
+	private endDate: Date;
 
 	private days = 0;
 
@@ -29,21 +29,8 @@ export class TimelineComponent implements OnInit {
 			this.displayRole = (range: Range) => range.title;
 		}
 
-		// Set min date
-		for (const r of this.data.ranges) {
-			if (r.startDate < this.startDate) {
-				this.startDate = new Date(r.startDate);
-			}
-		}
-		for (const c of this.data.chapters) {
-			if (c.startDate < this.startDate) {
-				this.startDate = new Date(c.startDate);
-			}
-		}
-		this.startDate.setMonth(this.startDate.getMonth() - 6);
-        this.startDate.setDate(1);
-
-		this.endDate.setMonth(this.endDate.getMonth() + 6);
+		this.calculateStartDate();
+		this.calculateEndDate();
 
 		// Calculate days to calculate percentages
 		this.days = this.timeToDays(this.endDate.getTime() - this.startDate.getTime());
@@ -127,5 +114,40 @@ export class TimelineComponent implements OnInit {
 			return ((r*299)+(g*587)+(b*114))/1000;
 		}
 		return 0;
+	}
+
+	private calculateStartDate() {
+		this.startDate = new Date();
+		for (const r of this.data.ranges) {
+			if (r.startDate < this.startDate) {
+				this.startDate = new Date(r.startDate);
+			}
+		}
+		for (const c of this.data.chapters) {
+			if (c.startDate < this.startDate) {
+				this.startDate = new Date(c.startDate);
+			}
+		}
+		this.startDate.setMonth(this.startDate.getMonth() - 6);
+        this.startDate.setDate(1);
+	}
+
+	private calculateEndDate() {
+		if (this.data.chapters.some(c => c.endDate === null) || this.data.ranges.some(c => c.endDate === null)) {
+			this.endDate = new Date();
+		} else {
+			this.endDate = new Date(1991, 9, 4);
+			for (const r of this.data.ranges) {
+				if (r.endDate > this.endDate) {
+					this.endDate = new Date(r.endDate);
+				}
+			}
+			for (const c of this.data.chapters) {
+				if (c.endDate > this.endDate) {
+					this.endDate = new Date(c.endDate);
+				}
+			}
+		}
+		this.endDate.setMonth(this.endDate.getMonth() + 6);
 	}
 }

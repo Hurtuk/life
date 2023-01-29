@@ -46,6 +46,7 @@ $line-height: 6px;
         font-family: $secondary-font;
         font-size: .8rem;
         left: -0.25em;
+        font-weight: 300;
 
         &::before {
             content: '';
@@ -66,15 +67,60 @@ $line-height: 6px;
             display: block;
         }
     }
+
+    @media screen and (max-width: 1200px) {
+        &[data-month] .month { display: none; }
+        &[data-month="0"],
+        &[data-month="6"] {
+            .month {
+                display: block;
+            }
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        &[data-month] .month { display: none; }
+        &[data-month="0"] {
+            .month {
+                display: block;
+            }
+        }
+    }
 }
 
 .ranges {
     position: relative;
+
+    &[data-levels="1"] {
+        top: 45px;
+        z-index: 1;
+        margin-top: 100px;
+
+        + .line {
+            .month-wrapper {
+                .month {
+                    bottom: calc(100% + 0.5rem);
+
+                    &::before {
+                        bottom: -0.6em;
+                    }
+                }
+
+                .year {
+                    top: calc(100% + 0.5rem);
+
+                    &::before {
+                        bottom: calc(100% - 3px + 0.5rem);
+                    }
+                }
+            }
+        }
+    }
 }
 
 .range {
     position: absolute;
-    background-color: lightblue;
+    background-color: var(--color);
     border-radius: 10px;
     white-space: nowrap;
     overflow: visible;
@@ -82,20 +128,44 @@ $line-height: 6px;
     font-size: .8rem;
     font-weight: 300;
 
-    &.still {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+    .icon {
+        $size: 75px;
+        $elevation: 50px;
+        position: absolute;
+        left: calc(-1 * $size / 2);
+        bottom: $elevation;
+        display: block;
+        width: $size;
+        height: $size;
+        border-radius: 100%;
+        border: 2px solid var(--color);
+        background-size: cover;
 
-        span {
-            max-width: calc(100% - .5em);
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: calc(50% - 1px);
+            height: calc($elevation - .8rem);
+            border-left: 2px dashed var(--color);
         }
     }
 
-    span {
+    .name {
         display: block;
         margin-left: .5em;
         max-width: calc(100% - 1em);
         overflow: hidden;
+    }
+
+    &.still {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        .name {
+            max-width: calc(100% - .5em);
+        }
     }
 }
 

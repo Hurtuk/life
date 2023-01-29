@@ -1,15 +1,16 @@
 <div class="wrapper">
-    <div class="ranges" [style.height.px]="(maxLevel + 1) * 22">
+    <div class="ranges" [style.height.px]="(maxLevel + 1) * 22" [attr.data-levels]="maxLevel + 1">
         <div class="range"
             *ngFor="let r of data.ranges"
+            [style]="'--color: ' + (r.color ? '#' + r.color : 'lightblue')"
             [style.left.%]="getPercent(r.startDate)"
             [style.width.%]="getWidth(r)"
             [style.bottom.px]="r.level * 22"
-            [style.background-color]="'#' + r.color"
             [style.color]="r.color ? brightnessByColor(r.color) > 180 ? '#000' : '#fff' : 'unset'"
             [title]="r.title"
             [class.still]="r.endDate === null">
-            <span>{{ displayRole(r) }}</span>
+            <span class="icon" *ngIf="maxLevel === 0" [style.background-image]="'url(' + r.icon + ')'" [title]="r.structure"></span>
+            <span class="name">{{ displayRole(r) }}</span>
         </div>
     </div>
     <div class="line">
