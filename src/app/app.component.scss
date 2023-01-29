@@ -1,0 +1,54 @@
+@import './variables';
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    flex: 1;
+}
+
+nav {
+    padding: 1rem;
+
+    ul {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+
+        li {
+            padding: 0;
+
+            a {
+                $icon-size: 32px;
+                background-size: $icon-size auto;
+                background-repeat: no-repeat;
+                background-position: top center;
+                padding-top: calc($icon-size + .25em);
+                text-align: center;
+                display: block;
+                width: $icon-size;
+                filter: grayscale(1);
+                opacity: .5;
+
+                &:hover,
+                &.active {
+                    filter: none;
+                    opacity: 1;
+                }
+            }
+
+            &.home a { background-image: url(/assets/home.png); }
+            &.job a { background-image: url(/assets/job.png); }
+            &.volunteering a { background-image: url(/assets/volunteering.png); }
+            &.hobby a { background-image: url(/assets/hobby.png); }
+            &.school a { background-image: url(/assets/school.png); }
+            &.love a { background-image: url(/assets/love.png); }
+            &.search a { background-image: url(/assets/search.png); }
+        }
+    }
+}

@@ -1,0 +1,31 @@
+<div class="wrapper">
+    <div class="ranges" [style.height.px]="(maxLevel + 1) * 22">
+        <div class="range"
+            *ngFor="let r of data.ranges"
+            [style.left.%]="getPercent(r.startDate)"
+            [style.width.%]="getWidth(r)"
+            [style.bottom.px]="r.level * 22"
+            [style.background-color]="'#' + r.color"
+            [style.color]="r.color ? brightnessByColor(r.color) > 180 ? '#000' : '#fff' : 'unset'"
+            [title]="r.title"
+            [class.still]="r.endDate === null">
+            <span>{{ displayRole(r) }}</span>
+        </div>
+    </div>
+    <div class="line">
+        <ng-container *ngFor="let y of getMonths(); let first_y = first">
+            <div class="month-wrapper"
+                *ngFor="let m of y.months; let first_m = first; let i = index"
+                [style]="'--days: ' + m.days"
+                [attr.data-month]="first_y ? 12 - y.months.length + i : i">
+                <span class="year" *ngIf="!first_y && first_m">{{ y.year }}</span>
+                <span class="month">{{ m.name }}</span>
+            </div>
+        </ng-container>
+    </div>
+    <div class="chapters" *ngIf="data.chapters">
+        <div class="chapter" *ngFor="let c of data.chapters" [style.left.%]="getPercent(c.startDate)" [class.text]="c.narrated == '1'">
+            <span class="date">{{ c.startDate | date:'d/MM' }}</span>
+        </div>
+    </div>
+</div>

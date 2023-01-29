@@ -1,0 +1,139 @@
+@import '../../variables';
+
+$line-color: #ccc;
+$line-height: 6px;
+
+.wrapper {
+    position: relative;
+}
+
+.line {
+    display: flex;
+    margin-top: 2em;
+}
+
+.month-wrapper {
+    position: relative;
+    height: $line-height;
+    background: $line-color;
+    flex: var(--days);
+    opacity: .8;
+
+    .year {
+        position: absolute;
+        top: calc(100% + .25rem);
+        left: -1em;
+        font-family: $secondary-font;
+        font-size: .85rem;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            background-color: $line-color;
+            border-radius: 100%;
+            width: $line-height * 2;
+            height: $line-height * 2;
+            bottom: calc(100% - $line-height / 2 + .25rem);
+            right: 0.5em;
+        }
+    }
+
+    .month {
+        position: absolute;
+        bottom: calc(100% + .25rem);
+        display: none;
+        font-family: $secondary-font;
+        font-size: .8rem;
+        left: -0.25em;
+
+        &::before {
+            content: '';
+            display: block;
+            border-bottom: 3px solid $line-color;
+            border-left: 2px solid transparent;
+            border-right: 2px solid transparent;
+            position: absolute;
+            bottom: -.3em;
+            left: .25em;
+        }
+    }
+
+    &[data-month="0"],
+    &[data-month="4"],
+    &[data-month="8"] {
+        .month {
+            display: block;
+        }
+    }
+}
+
+.ranges {
+    position: relative;
+}
+
+.range {
+    position: absolute;
+    background-color: lightblue;
+    border-radius: 10px;
+    white-space: nowrap;
+    overflow: visible;
+    font-family: $secondary-font;
+    font-size: .8rem;
+    font-weight: 300;
+
+    &.still {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        span {
+            max-width: calc(100% - .5em);
+        }
+    }
+
+    span {
+        display: block;
+        margin-left: .5em;
+        max-width: calc(100% - 1em);
+        overflow: hidden;
+    }
+}
+
+.chapters {
+    position: relative;
+}
+
+.chapter {
+    position: absolute;
+    width: 32px;
+    background: url(/assets/flag.png) no-repeat top center;
+    background-size: contain;
+    text-align: center;
+    padding-top: 32px;
+    font-family: $secondary-font;
+    font-size: .75em;
+    cursor: pointer;
+    top: 40px;
+    margin-left: -10px;
+
+    &::before {
+        content: '';
+        display: block;
+        height: 40px;
+        border-left: 2px dashed $line-color;
+        position: absolute;
+        bottom: 100%;
+        left: 10px;
+        z-index: -1;
+    }
+
+    &.text {
+        background-image: url(/assets/article.png);
+        top: 100px;
+        padding-top: 45px;
+
+        &::before {
+            height: 100px;
+        }
+    }
+}

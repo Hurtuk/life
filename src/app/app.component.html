@@ -1,1 +1,28 @@
-<app-timeline [data]="data"></app-timeline>
+<div class="content-wrapper">
+    <router-outlet></router-outlet>
+</div>
+<nav>
+    <ul>
+        <li class="home">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"></a>
+        </li>
+        <li class="job">
+            <a routerLink="/timeline/job" routerLinkActive="active"></a>
+        </li>
+        <li class="volunteering">
+            <a routerLink="/timeline/volunteering" routerLinkActive="active"></a>
+        </li>
+        <li class="hobby">
+            <a routerLink="/timeline/hobby" routerLinkActive="active"></a>
+        </li>
+        <li class="school">
+            <a routerLink="/timeline/school" routerLinkActive="active"></a>
+        </li>
+        <li class="love">
+            <a routerLink="/timeline/love" routerLinkActive="active"></a>
+        </li>
+        <li class="search">
+            <a routerLink="/timeline" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"></a>
+        </li>
+    </ul>
+</nav>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LifeService } from './services/life.service';
 
 @Component({
     selector: 'app-root',
@@ -6,12 +7,4 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    public data = {
-        ranges: [
-            { startDate: new Date(1999, 7, 3), endDate: new Date(2008, 2, 1) }
-        ],
-        chapters: [
-            { startDate: new Date(1999, 7, 3), endDate: new Date(2008, 2, 1) }
-        ]
-    }
 }
