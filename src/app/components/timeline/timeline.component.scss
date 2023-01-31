@@ -22,7 +22,7 @@ $line-height: 6px;
     .year {
         position: absolute;
         top: calc(100% + .25rem);
-        left: -1em;
+        left: -.5em;
         font-family: $secondary-font;
         font-size: .85rem;
 
@@ -45,7 +45,6 @@ $line-height: 6px;
         display: none;
         font-family: $secondary-font;
         font-size: .8rem;
-        left: -0.25em;
         font-weight: 300;
 
         &::before {
@@ -95,6 +94,10 @@ $line-height: 6px;
         top: 45px;
         z-index: 1;
         margin-top: 100px;
+
+        .range {
+            border-top-left-radius: 0;
+        }
 
         + .line {
             .month-wrapper {
@@ -146,9 +149,10 @@ $line-height: 6px;
             display: block;
             position: absolute;
             top: 100%;
-            left: calc(50% - 1px);
+            left: calc(50% - 2px);
             height: calc($elevation - .8rem);
-            border-left: 2px dashed var(--color);
+            border-left: 2px solid var(--color);
+            z-index: -1;
         }
     }
 

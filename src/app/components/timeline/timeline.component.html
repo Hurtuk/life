@@ -9,7 +9,7 @@
             [style.color]="r.color ? brightnessByColor(r.color) > 180 ? '#000' : '#fff' : 'unset'"
             [title]="r.title"
             [class.still]="r.endDate === null">
-            <span class="icon" *ngIf="maxLevel === 0" [style.background-image]="'url(' + r.icon + ')'" [title]="r.structure"></span>
+            <span class="icon" *ngIf="maxLevel === 0" [style.background-image]="'url(' + r.icon + ')'" [title]="r.structure ?? ''"></span>
             <span class="name">{{ displayRole(r) }}</span>
         </div>
     </div>

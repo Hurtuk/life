@@ -16,6 +16,7 @@ export class TimelineComponent implements OnInit {
 		chapters: Chapter[];
 	};
 	@Input() displayRole?: Function;
+	@Input() toToday?: boolean;
 
 	public maxLevel = 0;
 
@@ -133,7 +134,7 @@ export class TimelineComponent implements OnInit {
 	}
 
 	private calculateEndDate() {
-		if (this.data.chapters.some(c => c.endDate === null) || this.data.ranges.some(c => c.endDate === null)) {
+		if (this.toToday || this.data.chapters.some(c => c.endDate === null) || this.data.ranges.some(c => c.endDate === null)) {
 			this.endDate = new Date();
 		} else {
 			this.endDate = new Date(1991, 9, 4);
