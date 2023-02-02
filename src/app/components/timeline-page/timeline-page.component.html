@@ -1,1 +1,2 @@
-<app-timeline *ngIf="data" [data]="data" [displayRole]="displayRoles" [toToday]="type === 'love'"></app-timeline>
+<h1>{{ display?.title }}</h1>
+<app-timeline *ngIf="data" [data]="data" [displayRole]="display?.roles" [toToday]="type === 'love'"></app-timeline>

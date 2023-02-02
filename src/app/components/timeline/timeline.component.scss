@@ -90,10 +90,14 @@ $line-height: 6px;
 .ranges {
     position: relative;
 
+    &[data-levels="0"] {
+        margin-top: 80px;
+    }
+
     &[data-levels="1"] {
         top: 45px;
         z-index: 1;
-        margin-top: 100px;
+        margin-top: 120px;
 
         .range {
             border-top-left-radius: 0;

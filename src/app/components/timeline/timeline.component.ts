@@ -28,7 +28,7 @@ export class TimelineComponent implements OnInit {
 	private days = 0;
 
 	ngOnInit() {
-		if (typeof this.displayRole === 'undefined') {
+		if (!this.displayRole) {
 			this.displayRole = (range: Range) => range.title;
 		}
 
@@ -87,19 +87,23 @@ export class TimelineComponent implements OnInit {
 	private calculateRangesLevels() {
 		// Sort ranges from oldest to newest
 		let ranges = this.data.ranges.sort((r1, r2) => r1.startDate.getTime() - r2.startDate.getTime());
-		const levels = [ranges[0].endDate];
-		ranges[0].level = 0;
-		for (let i = 1; i < ranges.length; i++) {
-			// Try on every level starting by the first one
-			let level = 0;
-			while (level < levels.length && (levels[level] > ranges[i].startDate || levels[level] === null)) {
-				level++;
+		if (ranges.length === 0) {
+			this.maxLevel = -1;
+		} else {
+			const levels = [ranges[0].endDate];
+			ranges[0].level = 0;
+			for (let i = 1; i < ranges.length; i++) {
+				// Try on every level starting by the first one
+				let level = 0;
+				while (level < levels.length && (levels[level] > ranges[i].startDate || levels[level] === null)) {
+					level++;
+				}
+				// Put it on the best level
+				levels[level] = ranges[i].endDate;
+				ranges[i].level = level;
+				// Store the max level for the zone height
+				this.maxLevel = Math.max(this.maxLevel, level);
 			}
-			// Put it on the best level
-			levels[level] = ranges[i].endDate;
-			ranges[i].level = level;
-			// Store the max level for the zone height
-			this.maxLevel = Math.max(this.maxLevel, level);
 		}
 	}
 

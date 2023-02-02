@@ -11,14 +11,32 @@ import { LifeService } from 'src/app/services/life.service';
 })
 export class TimelinePageComponent implements OnInit {
 
-  public DISPLAY_ROLES = {
-    'work': r => r.role + (r.structure === 'Auto-entrepreneur') ? '' : ' chez ' + r.title,
-    'volunteering': r => r.role + (r.title.match(/^[aeiouyhAEIOUYH]/) ? " de l'" : ' du ') + r.title,
-    'hobby': r => (r.role === 'Elève' ?
+  public DISPLAY = {
+    'job': {
+      title: 'Travail',
+      roles: r => r.role + ((r.structure === 'Auto-entrepreneur') ? '' : ' chez ' + r.title)
+    },
+    'volunteering': {
+      title: 'Bénévolat',
+      roles: r => r.role + (r.title.match(/^[aeiouyhAEIOUYH]/) ? " de l'" : ' du ') + r.title
+    },
+    'hobby': {
+      title: 'Activités',
+      roles: r => (r.role === 'Elève' ?
                     'Cours d' + (r.title.match(/^[aeiouyhAEIOUYH]/) ? "'" : 'e ') + r.title.toLowerCase() :
                     r.title + (r.structure === 'Auto-entrepreneur' ? '' : ' (' + r.role + ')'))
+    },
+    'school': {
+      title: 'Scolarité'
+    },
+    'love': {
+      title: 'Romances'
+    },
+    'unclassified': {
+      title: 'Divers'
+    }
   };
-  public displayRoles;
+  public display?: any;
 
   public type?: string;
   public data: { ranges: Range[], chapters: Chapter[] };
@@ -32,7 +50,7 @@ export class TimelinePageComponent implements OnInit {
     this.route.params.subscribe(params => {
       delete this.data;
       this.type = params.type;
-      this.displayRoles = this.DISPLAY_ROLES[this.type];
+      this.display = this.DISPLAY[this.type];
       this.lifeService.getData({ type: this.type }).subscribe(data => {
         this.data = data;
       })

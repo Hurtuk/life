@@ -34,11 +34,34 @@ nav {
                 width: $icon-size;
                 filter: grayscale(1);
                 opacity: .5;
+                position: relative;
 
                 &:hover,
                 &.active {
                     filter: none;
                     opacity: 1;
+                }
+
+                &::before {
+                    content: attr(title);
+                    position: absolute;
+                    bottom: 0;
+                    font-family: $secondary-font;
+                    text-transform: uppercase;
+                    font-size: .85em;
+                    left: -30px;
+                    right: -30px;
+                    display: block;
+                    text-align: center;
+                    opacity: 0;
+                    transition: opacity .5s, bottom .5s;
+                    color: #555;
+                    height: 100%;
+                }
+
+                &:hover::before {
+                    opacity: 1;
+                    bottom: calc(70%);
                 }
             }
 
@@ -48,6 +71,7 @@ nav {
             &.hobby a { background-image: url(/assets/hobby.png); }
             &.school a { background-image: url(/assets/school.png); }
             &.love a { background-image: url(/assets/love.png); }
+            &.unclassified a { background-image: url(/assets/unclassified.png); }
             &.search a { background-image: url(/assets/search.png); }
         }
     }

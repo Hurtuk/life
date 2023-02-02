@@ -4,25 +4,28 @@
 <nav>
     <ul>
         <li class="home">
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"></a>
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" title="Accueil"></a>
         </li>
         <li class="job">
-            <a routerLink="/timeline/job" routerLinkActive="active"></a>
+            <a routerLink="/timeline/job" routerLinkActive="active" title="Travail"></a>
         </li>
         <li class="volunteering">
-            <a routerLink="/timeline/volunteering" routerLinkActive="active"></a>
+            <a routerLink="/timeline/volunteering" routerLinkActive="active" title="Bénévolat"></a>
         </li>
         <li class="hobby">
-            <a routerLink="/timeline/hobby" routerLinkActive="active"></a>
+            <a routerLink="/timeline/hobby" routerLinkActive="active" title="Activités"></a>
         </li>
         <li class="school">
-            <a routerLink="/timeline/school" routerLinkActive="active"></a>
+            <a routerLink="/timeline/school" routerLinkActive="active" title="Scolarité"></a>
         </li>
         <li class="love">
-            <a routerLink="/timeline/love" routerLinkActive="active"></a>
+            <a routerLink="/timeline/love" routerLinkActive="active" title="Romances"></a>
+        </li>
+        <li class="unclassified">
+            <a routerLink="/timeline/unclassified" routerLinkActive="active" title="Divers"></a>
         </li>
         <li class="search">
-            <a routerLink="/timeline" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"></a>
+            <a routerLink="/timeline" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" title="Filtrer"></a>
         </li>
     </ul>
 </nav>
