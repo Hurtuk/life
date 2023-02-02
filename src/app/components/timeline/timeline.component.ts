@@ -20,6 +20,8 @@ export class TimelineComponent implements OnInit {
 
 	public maxLevel = 0;
 
+	public activatedChapter?: Chapter = null;
+
 	private startDate: Date;
 	private endDate: Date;
 
@@ -134,7 +136,7 @@ export class TimelineComponent implements OnInit {
 	}
 
 	private calculateEndDate() {
-		if (this.toToday || this.data.chapters.some(c => c.endDate === null) || this.data.ranges.some(c => c.endDate === null)) {
+		if (this.toToday || this.data.ranges.some(c => c.endDate === null) || this.data.chapters.some(c => c.endDate === null)) {
 			this.endDate = new Date();
 		} else {
 			this.endDate = new Date(1991, 9, 4);

@@ -130,6 +130,7 @@ $line-height: 6px;
     font-family: $secondary-font;
     font-size: .8rem;
     font-weight: 300;
+    min-width: 2px;
 
     .icon {
         $size: 75px;
@@ -170,6 +171,11 @@ $line-height: 6px;
         .name {
             max-width: calc(100% - .5em);
         }
+    }
+
+    &.translucid {
+        opacity: .5;
+        filter: grayscale(1);
     }
 }
 

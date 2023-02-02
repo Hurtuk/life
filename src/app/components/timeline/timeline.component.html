@@ -8,7 +8,9 @@
             [style.bottom.px]="r.level * 22"
             [style.color]="r.color ? brightnessByColor(r.color) > 180 ? '#000' : '#fff' : 'unset'"
             [title]="r.title"
-            [class.still]="r.endDate === null">
+            [class.still]="r.endDate === null"
+            [id]="'range-' + r.id"
+            [class.translucid]="activatedChapter !== null && activatedChapter.idAssociation != r.id">
             <span class="icon" *ngIf="maxLevel === 0" [style.background-image]="'url(' + r.icon + ')'" [title]="r.structure ?? ''"></span>
             <span class="name">{{ displayRole(r) }}</span>
         </div>
@@ -25,7 +27,13 @@
         </ng-container>
     </div>
     <div class="chapters" *ngIf="data.chapters">
-        <div class="chapter" *ngFor="let c of data.chapters" [style.left.%]="getPercent(c.startDate)" [class.text]="c.narrated == '1'">
+        <div class="chapter"
+            *ngFor="let c of data.chapters"
+            [style.left.%]="getPercent(c.startDate)"
+            [class.text]="c.narrated == '1'"
+            [attr.association]="c.idAssociation"
+            (mouseenter)="activatedChapter = c"
+            (mouseleave)="activatedChapter = null">
             <span class="date">{{ c.startDate | date:'d/MM' }}</span>
         </div>
     </div>
