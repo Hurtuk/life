@@ -190,13 +190,12 @@ $line-height: 6px;
 .chapter {
     position: absolute;
     width: 32px;
-    background: url(/assets/flag.png) no-repeat top center;
+    background: no-repeat top center;
     background-size: contain;
     text-align: center;
     padding-top: 32px;
     font-family: $secondary-font;
     font-size: .75em;
-    cursor: pointer;
     top: 40px;
     margin-left: -10px;
 
@@ -212,12 +211,36 @@ $line-height: 6px;
     }
 
     &.text {
-        background-image: url(/assets/article.png);
-        top: 100px;
-        padding-top: 45px;
+        cursor: pointer;
+    }
 
-        &::before {
-            height: 100px;
+    .title {
+        position: absolute;
+        top: -.25em;
+        bottom: -.25em;
+        left: -.25em;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        background-color: $line-color;
+        z-index: -1;
+        border-radius: 10px;
+        padding: .25em .75em .25em calc(32px + .75em);
+        font-family: $main-font;
+        opacity: 0;
+        transition: opacity .3s;
+        font-size: 1.5em;
+
+        &.left {
+            padding: .25em calc(32px + 1.25em) .25em .75em;
+            left: unset;
+            right: -.5em;
+        }
+    }
+
+    &:hover {
+        .title {
+            opacity: 1;
         }
     }
 }

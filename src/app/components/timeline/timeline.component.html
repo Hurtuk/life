@@ -32,9 +32,11 @@
             [style.left.%]="getPercent(c.startDate)"
             [class.text]="c.narrated == '1'"
             [attr.association]="c.idAssociation"
+            [style.background-image]="'url(' + c.tags[0].icon + ')'"
             (mouseenter)="activatedChapter = c"
             (mouseleave)="activatedChapter = null">
             <span class="date">{{ c.startDate | date:'d/MM' }}</span>
+            <span class="title" [class.left]="getPercent(c.startDate) > 50">{{ c.title }}</span>
         </div>
     </div>
 </div>

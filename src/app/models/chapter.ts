@@ -1,3 +1,5 @@
+import { Tag } from "./tag";
+
 export class Chapter {
     title: string;
     content: string;
@@ -5,5 +7,5 @@ export class Chapter {
     endDate: Date;
     narrated: string;
     people: string[];
-    tags: string[];
+    tags: Tag[];
 }
