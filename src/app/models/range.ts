@@ -5,7 +5,8 @@ export class Range {
     level: number;
     color: string;
     structure: string;
-    tags: string[];
+    tag: string;
     comment: string;
     icon: string;
+    photoYear: string;
 }

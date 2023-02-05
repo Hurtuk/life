@@ -3,6 +3,10 @@
 $line-color: #ccc;
 $line-height: 6px;
 
+:host {
+    margin-bottom: 100px;
+}
+
 .wrapper {
     position: relative;
 }
@@ -135,6 +139,7 @@ $line-height: 6px;
     font-size: .8rem;
     font-weight: 300;
     min-width: 2px;
+    z-index: 2;
 
     .icon {
         $size: 75px;
@@ -180,11 +185,16 @@ $line-height: 6px;
     &.translucid {
         opacity: .5;
         filter: grayscale(1);
+        z-index: 1;
     }
 }
 
 .chapters {
     position: relative;
+}
+
+.text {
+    cursor: pointer;
 }
 
 .chapter {
@@ -208,10 +218,6 @@ $line-height: 6px;
         bottom: 100%;
         left: 10px;
         z-index: -1;
-    }
-
-    &.text {
-        cursor: pointer;
     }
 
     .title {

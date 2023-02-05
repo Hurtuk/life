@@ -1,7 +1,73 @@
+@import '../../variables.scss';
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
 h1 {
     margin: 1rem;
     opacity: .2;
     font-size: 3rem;
     margin-bottom: -2rem;
     line-height: .9em;
+}
+
+.tale {
+    flex: 1;
+    overflow: auto;
+    width: 90%;
+    margin: 0 auto;
+
+    header {
+        margin-bottom: 1.5em;
+    }
+
+    figure {
+        float: left;
+        margin: 1em 1em 0 0;
+
+        img {
+            display: block;
+            object-fit: cover;
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+        }
+
+        figcaption {
+            color: gray;
+            text-align: center;
+            font-family: $secondary-font;
+            font-size: .8em;
+            font-weight: 200;
+        }
+    }
+
+    .tags {
+        float: right;
+        margin-top: 5px;
+
+        span {
+            background-color: #ccc;
+            padding: .125em .5em;
+            border-radius: 5px;
+            font-size: .8em;
+            font-family: $secondary-font;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-left: .5em;
+        }
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+
+    .dates {
+        display: block;
+        margin-top: -.5em;
+        color: #999;
+    }
 }

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Chapter } from 'src/app/models/chapter';
+import { Displayable } from 'src/app/models/displayable';
 import { Range } from 'src/app/models/range';
 
 @Component({
@@ -17,6 +18,9 @@ export class TimelineComponent implements OnInit {
 	};
 	@Input() displayRole?: Function;
 	@Input() toToday?: boolean;
+
+	@Output() selectItem = new EventEmitter<Displayable>();
+	public selected?: Range | Chapter;
 
 	public maxLevel = 0;
 
@@ -39,6 +43,34 @@ export class TimelineComponent implements OnInit {
 		this.days = this.timeToDays(this.endDate.getTime() - this.startDate.getTime());
 
 		this.calculateRangesLevels();
+	}
+
+	public selectRange(r: Range) {
+		this.selected = r;
+		this.selectItem.emit({
+			title: r.title,
+			startDate: r.startDate,
+			endDate: r.endDate,
+			tags: r.tag ? [r.tag] : [],
+			content: r.comment,
+			photo: r.icon,
+			photoYear: r.photoYear,
+			color: r.color
+		});
+	}
+
+	public selectChapter(c: Chapter) {
+		this.selected = c;
+		this.selectItem.emit({
+			title: c.title,
+			startDate: c.startDate,
+			endDate: c.endDate,
+			tags: c.tags.map(t => t.name),
+			content: c.content,
+			photo: null,
+			photoYear: null,
+			color: null
+		});
 	}
 
 	public getPercent(date: Date) {

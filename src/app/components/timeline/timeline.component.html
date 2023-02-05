@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div class="ranges" [style.height.px]="(maxLevel + 1) * 22" [attr.data-levels]="maxLevel + 1">
-        <div class="range"
+        <div class="range text"
             *ngFor="let r of data.ranges"
             [style]="'--color: ' + (r.color ? '#' + r.color : 'lightblue')"
             [style.left.%]="getPercent(r.startDate)"
@@ -10,7 +10,8 @@
             [title]="r.title"
             [class.still]="r.endDate === null"
             [id]="'range-' + r.id"
-            [class.translucid]="activatedChapter !== null && activatedChapter.idAssociation != r.id">
+            [class.translucid]="(activatedChapter !== null && activatedChapter.idAssociation != r.id) || (selected != null && selected != r)"
+            (click)="selectRange(r)">
             <span class="icon" *ngIf="maxLevel === 0" [style.background-image]="'url(' + r.icon + ')'" [title]="r.structure ?? ''"></span>
             <span class="name">{{ displayRole(r) }}</span>
         </div>
@@ -34,7 +35,8 @@
             [attr.association]="c.idAssociation"
             [style.background-image]="'url(' + c.tags[0].icon + ')'"
             (mouseenter)="activatedChapter = c"
-            (mouseleave)="activatedChapter = null">
+            (mouseleave)="activatedChapter = null"
+            (click)="selectChapter(c)">
             <span class="date">{{ c.startDate | date:'d/MM' }}</span>
             <span class="title" [class.left]="getPercent(c.startDate) > 50">{{ c.title }}</span>
         </div>
