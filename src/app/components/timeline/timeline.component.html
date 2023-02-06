@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div class="ranges" [style.height.px]="(maxLevel + 1) * 22" [attr.data-levels]="maxLevel + 1">
-        <div class="range text"
+        <div class="range"
             *ngFor="let r of data.ranges"
             [style]="'--color: ' + (r.color ? '#' + r.color : 'lightblue')"
             [style.left.%]="getPercent(r.startDate)"
@@ -8,9 +8,11 @@
             [style.bottom.px]="r.level * 22"
             [style.color]="r.color ? brightnessByColor(r.color) > 180 ? '#000' : '#fff' : 'unset'"
             [title]="r.title"
+            [class.text]="r.comment"
             [class.still]="r.endDate === null"
             [id]="'range-' + r.id"
-            [class.translucid]="(activatedChapter !== null && activatedChapter.idAssociation != r.id) || (selected != null && selected != r)"
+            [class.translucid]="(!activatedChapter && selected && selected !== r)
+                                || (activatedChapter && activatedChapter.idAssociation != r.id && selected !== r)"
             (click)="selectRange(r)">
             <span class="icon" *ngIf="maxLevel === 0" [style.background-image]="'url(' + r.icon + ')'" [title]="r.structure ?? ''"></span>
             <span class="name">{{ displayRole(r) }}</span>
@@ -31,13 +33,15 @@
         <div class="chapter"
             *ngFor="let c of data.chapters"
             [style.left.%]="getPercent(c.startDate)"
-            [class.text]="c.narrated == '1'"
+            [class.text]="c.narrated"
             [attr.association]="c.idAssociation"
-            [style.background-image]="'url(' + c.tags[0].icon + ')'"
             (mouseenter)="activatedChapter = c"
             (mouseleave)="activatedChapter = null"
-            (click)="selectChapter(c)">
-            <span class="date">{{ c.startDate | date:'d/MM' }}</span>
+            (click)="selectChapter(c)"
+            [class.translucid]="(!activatedChapter && selected && selected.id !== c.idAssociation)
+                                || (activatedChapter && activatedChapter.idAssociation != c.idAssociation && selected?.id !== c.idAssociation)"
+            [class.front]="activatedChapter == c">
+            <span class="date" [style.background-image]="'url(' + c.tags[0].icon + ')'">{{ c.startDate | date:'d/MM' }}</span>
             <span class="title" [class.left]="getPercent(c.startDate) > 50">{{ c.title }}</span>
         </div>
     </div>

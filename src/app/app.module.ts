@@ -9,6 +9,8 @@ import { LoveStoriesComponent } from './components/love-stories/love-stories.com
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelinePageComponent } from './components/timeline-page/timeline-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { TextFormatPipe } from './pipes/text-format.pipe';
+import { InsertPicsPipe } from './pipes/insert-pics.pipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { HomePageComponent } from './components/home-page/home-page.component';
     LoveStoriesComponent,
     TimelineComponent,
     TimelinePageComponent,
-    HomePageComponent
+    HomePageComponent,
+    TextFormatPipe,
+    InsertPicsPipe
   ],
   imports: [
     BrowserModule,

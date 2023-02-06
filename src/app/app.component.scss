@@ -64,6 +64,8 @@ nav {
                     transition: opacity .5s, bottom .5s;
                     color: #555;
                     height: 100%;
+                    z-index: -1;
+                    pointer-events: none;
                 }
 
                 &:hover::before {

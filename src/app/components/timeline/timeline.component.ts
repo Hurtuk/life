@@ -46,31 +46,37 @@ export class TimelineComponent implements OnInit {
 	}
 
 	public selectRange(r: Range) {
-		this.selected = r;
-		this.selectItem.emit({
-			title: r.title,
-			startDate: r.startDate,
-			endDate: r.endDate,
-			tags: r.tag ? [r.tag] : [],
-			content: r.comment,
-			photo: r.icon,
-			photoYear: r.photoYear,
-			color: r.color
-		});
+		if (r.comment) {
+			this.selected = r;
+			this.selectItem.emit({
+				title: r.title,
+				startDate: r.startDate,
+				endDate: r.endDate,
+				tags: r.tag ? [r.tag] : [],
+				content: r.comment,
+				photo: r.icon,
+				photoYear: r.photoYear,
+				color: r.color,
+				people: null
+			});
+		}
 	}
 
 	public selectChapter(c: Chapter) {
-		this.selected = c;
-		this.selectItem.emit({
-			title: c.title,
-			startDate: c.startDate,
-			endDate: c.endDate,
-			tags: c.tags.map(t => t.name),
-			content: c.content,
-			photo: null,
-			photoYear: null,
-			color: null
-		});
+		if (c.narrated) {
+			this.selected = this.data.ranges.find(r => r.id == c.idAssociation);
+			this.selectItem.emit({
+				title: c.title,
+				startDate: c.startDate,
+				endDate: c.endDate,
+				tags: c.tags,
+				content: c.content,
+				photo: null,
+				photoYear: null,
+				color: null,
+				people: c.people
+			});
+		}
 	}
 
 	public getPercent(date: Date) {

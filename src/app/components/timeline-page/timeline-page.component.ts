@@ -54,6 +54,7 @@ export class TimelinePageComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       delete this.data;
+      delete this.selected;
       this.type = params.type;
       this.display = this.DISPLAY[this.type];
       this.lifeService.getData({ type: this.type }).subscribe(data => {
@@ -62,16 +63,26 @@ export class TimelinePageComponent implements OnInit {
     })
   }
 
+  public getPeople(): string {
+    const names = this.selected.people.map(p => p.name);
+    if (names.length > 1) {
+      names[names.length - 2] = names[names.length - 2] + " et " + names.pop();
+    }
+    return names.join(', ');
+  }
+
   public getSelectedDates(): string {
     if (!this.selected) return "";
     
     const start = this.selected.startDate,
       end = this.selected.endDate;
-    
+
+    if (end === null) {
+      return 'Depuis le ' + this.longDate(start);
+    }
     if (start.getTime() == end.getTime()) {
       return 'Le ' + this.longDate(start);
     }
-
     return 'Du ' + this.longDate(start, start.getMonth() != end.getMonth(), start.getFullYear() != end.getFullYear()) + ' au ' + this.longDate(end);
   }
 

@@ -29,3 +29,18 @@ body {
         z-index: -1;
     }
 }
+
+p {
+    text-align: justify;
+}
+
+.photos {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        max-height: 200px;
+    }
+}
