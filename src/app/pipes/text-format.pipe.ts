@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TextFormatPipe implements PipeTransform {
 
-  transform(value: string): string {
-    return value
+  transform(value: string, autop = true): string {
+    let result = value
       .replace(/ ([\?!:;])/gi, "&nbsp;$1")
       .replace(/« /gi, "«&nbsp;")
       .replace(/ »/gi, "&nbsp;»")
@@ -14,7 +14,11 @@ export class TextFormatPipe implements PipeTransform {
       .replace(/'/gi, "’")
       .replace(/(\d)((ers?)|(ères?)|(èmes?))/gi, "$1<sup>$2</sup>")
       .replace(/\r/g, "")
-      .split("\n").map(v => !v ? '': ('<p>' + v + '</p>')).join('');
+      .split("\n");
+    if (autop) {
+      result = result.map(v => !v ? '': ('<p>' + v + '</p>'));
+    }
+    return result.join('');
   }
 
 }

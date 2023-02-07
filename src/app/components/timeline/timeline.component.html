@@ -15,7 +15,7 @@
                                 || (activatedChapter && activatedChapter.idAssociation != r.id && selected !== r)"
             (click)="selectRange(r)">
             <span class="icon" *ngIf="maxLevel === 0" [style.background-image]="'url(' + r.icon + ')'" [title]="r.structure ?? ''"></span>
-            <span class="name">{{ displayRole(r) }}</span>
+            <span class="name" [innerHTML]="displayRole(r) | textFormat:false"></span>
         </div>
     </div>
     <div class="line">
@@ -42,7 +42,7 @@
                                 || (activatedChapter && activatedChapter.idAssociation != c.idAssociation && selected?.id !== c.idAssociation)"
             [class.front]="activatedChapter == c">
             <span class="date" [style.background-image]="'url(' + c.tags[0].icon + ')'">{{ c.startDate | date:'d/MM' }}</span>
-            <span class="title" [class.left]="getPercent(c.startDate) > 50">{{ c.title }}</span>
+            <span class="title" [class.left]="getPercent(c.startDate) > 50" [innerHTML]="c.title | textFormat:false"></span>
         </div>
     </div>
 </div>

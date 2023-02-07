@@ -233,7 +233,6 @@ $line-height: 6px;
         top: -.25em;
         bottom: -.25em;
         left: -.25em;
-        display: flex;
         align-items: center;
         white-space: nowrap;
         background-color: $line-color;
@@ -242,6 +241,7 @@ $line-height: 6px;
         padding: .25em .75em .25em calc(32px + .75em);
         font-family: $main-font;
         opacity: 0;
+        display: none;
         transition: opacity .2s;
         font-size: 1.5em;
 
@@ -254,6 +254,7 @@ $line-height: 6px;
 
     &:hover {
         .title {
+            display: flex;
             opacity: 1;
         }
     }
