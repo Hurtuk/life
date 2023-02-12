@@ -20,9 +20,11 @@ export class TextFormatPipe implements PipeTransform {
     if (autop) {
       result = result.map(v => {
         if (!v) return '';
-        if (v.match(/^.*[^….!?\]]$/g)) return '<h2>' + v + '</h2>';
+        if (v.match(/^[^\-].*[^….!?:\]]$/)) return '<h2>' + v + '</h2>';
+        if (v.match(/^- /)) return '<li>' + v.substring(2) + '</li>';
         return '<p>' + v + '</p>';
       });
+      return result.join('').replace(/(?<!<\/li>)<li>/g, "<ul><li>").replace(/<\/li>(?!<li>)/g, "</li></ul>");
     }
     return result.join('');
   }
