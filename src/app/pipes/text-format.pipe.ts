@@ -15,18 +15,24 @@ export class TextFormatPipe implements PipeTransform {
       .replace(/'/g, "’")
       .replace(/\- (.+) \-/gm, "–&nbsp;$1&nbsp;–")
       .replace(/(\d)((ers?)|(ères?)|(èmes?))/gi, "$1<sup>$2</sup>")
-      .replace(/\r/g, "")
-      .split("\n");
+      .replace(/\r/g, "");
+
     if (autop) {
-      result = result.map(v => {
-        if (!v) return '';
-        if (v.match(/^[^\-].*[^….!?:\]]$/)) return '<h2>' + v + '</h2>';
-        if (v.match(/^- /)) return '<li>' + v.substring(2) + '</li>';
-        return '<p>' + v + '</p>';
-      });
-      return result.join('').replace(/(?<!<\/li>)<li>/g, "<ul><li>").replace(/<\/li>(?!<li>)/g, "</li></ul>");
+      result = result.split("\n")
+        .map(v => {
+          if (!v)
+            return '';
+          if (v.match(/^[^\-].*[^….!?:\]]$/))
+            return '<h2>' + v + '</h2>';
+          if (v.match(/^- /))
+            return '<li>' + v.substring(2) + '</li>';
+          return '<p>' + v + '</p>';
+        })
+        .join('')
+        .replace(/(?<!<\/li>)<li>/g, "<ul><li>").replace(/<\/li>(?!<li>)/g, "</li></ul>");
     }
-    return result.join('');
+
+    return result;
   }
 
 }
