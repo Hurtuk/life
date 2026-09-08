@@ -12,4 +12,6 @@ export class Range {
     comment: string;
     icon: string;
     photoYear: string;
+    hisAge: number;
+    herAge: number;
 }

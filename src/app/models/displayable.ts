@@ -11,4 +11,6 @@ export class Displayable {
     photoYear: string;
     color: string;
     people: Person[];
+    hisAge?: number;
+    herAge?: number;
 }

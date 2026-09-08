@@ -46,7 +46,7 @@ export class TimelineComponent implements OnInit {
 	}
 
 	public selectRange(r: Range) {
-		if (r.comment) {
+		if (r.comment || r.herAge) {
 			this.selected = r;
 			this.selectItem.emit({
 				title: r.title,
@@ -57,7 +57,9 @@ export class TimelineComponent implements OnInit {
 				photo: r.icon,
 				photoYear: r.photoYear,
 				color: r.color,
-				people: null
+				people: null,
+				hisAge: r.hisAge,
+				herAge: r.herAge
 			});
 		}
 	}

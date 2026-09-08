@@ -8,7 +8,7 @@
             [style.bottom.px]="r.level * 22"
             [style.color]="r.color ? brightnessByColor(r.color) > 180 ? '#000' : '#fff' : 'unset'"
             [title]="r.title"
-            [class.text]="r.comment"
+            [class.text]="r.comment || r.herAge"
             [class.still]="r.endDate === null"
             [id]="'range-' + r.id"
             [class.translucid]="(!activatedChapter && selected && selected !== r)

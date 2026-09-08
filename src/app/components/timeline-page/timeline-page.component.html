@@ -5,13 +5,17 @@
         <img [src]="selected.photo">
         <figcaption *ngIf="selected.photoYear">({{selected.photoYear}})</figcaption>
     </figure>
+    <div class="ages">
+        <span class="his" *ngIf="selected.hisAge">{{selected.hisAge}}</span>
+        <span class="hers" *ngIf="selected.herAge">{{selected.herAge}}</span>
+    </div>
     <header>
         <div class="tags" *ngIf="selected.tags">
             <span *ngFor="let tag of selected.tags" [style.background-image]="'url(' + tag.icon + ')'">{{tag.name}}</span>
         </div>
         <div class="people" *ngIf="selected.people">Avec {{ getPeople() }}</div>
         <h2 [style.color]="'#' + selected.color">{{selected.title}}</h2>
-        <span class="dates">{{ getSelectedDates() }}</span>
+        <span class="dates" [innerHtml]="getSelectedDates()"></span>
     </header>
-    <div [innerHtml]="selected.content | textFormat | insertPics"></div>
+    <div *ngIf="selected.content" [innerHtml]="selected.content | textFormat | insertPics"></div>
 </div>

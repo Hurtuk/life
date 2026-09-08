@@ -9,7 +9,7 @@ import { Range } from '../models/range';
 })
 export class LifeService {
 
-  private URL = 'http://louiecinephile.fr/lifeBO/api/';
+  private URL = 'https://louiecinephile.fr/lifeBO/api/';
 
   constructor(
     private http: HttpClient

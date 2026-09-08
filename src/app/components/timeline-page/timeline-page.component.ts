@@ -87,6 +87,7 @@ export class TimelinePageComponent implements OnInit {
   }
 
   private longDate(d: Date, month = true, year = true): string {
-    return d.getDate() + (month ? ' ' + this.MONTHS[d.getMonth()] : '') + (year ? ' ' + d.getFullYear() : '');
+    const day = d.getDate();
+    return (day == 1 ? day + '<sup>er</sup>' : day) + (month ? ' ' + this.MONTHS[d.getMonth()] : '') + (year ? ' ' + d.getFullYear() : '');
   }
 }

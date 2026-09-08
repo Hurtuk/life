@@ -5,7 +5,6 @@ import { httpInterceptorProviders } from 'src/interceptors';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoveStoriesComponent } from './components/love-stories/love-stories.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelinePageComponent } from './components/timeline-page/timeline-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
@@ -15,7 +14,6 @@ import { InsertPicsPipe } from './pipes/insert-pics.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    LoveStoriesComponent,
     TimelineComponent,
     TimelinePageComponent,
     HomePageComponent,

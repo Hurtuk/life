@@ -74,14 +74,14 @@ nav {
                 }
             }
 
-            &.home a { background-image: url(/assets/home.png); }
-            &.job a { background-image: url(/assets/job.png); }
-            &.volunteering a { background-image: url(/assets/volunteering.png); }
-            &.hobby a { background-image: url(/assets/hobby.png); }
-            &.school a { background-image: url(/assets/school.png); }
-            &.love a { background-image: url(/assets/love.png); }
-            &.unclassified a { background-image: url(/assets/unclassified.png); }
-            &.search a { background-image: url(/assets/search.png); }
+            &.home a { background-image: url(../assets/home.png); }
+            &.job a { background-image: url(../assets/job.png); }
+            &.volunteering a { background-image: url(../assets/volunteering.png); }
+            &.hobby a { background-image: url(../assets/hobby.png); }
+            &.school a { background-image: url(../assets/school.png); }
+            &.love a { background-image: url(../assets/love.png); }
+            &.unclassified a { background-image: url(../assets/unclassified.png); }
+            &.search a { background-image: url(../assets/search.png); }
         }
     }
 }
