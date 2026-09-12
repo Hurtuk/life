@@ -174,17 +174,17 @@ if (-not $transferts) { throw "Rien à livrer." }
 if ($livrerFront -and $Cleanup) {
 	Write-Etape "Nettoyage de $dossierFront"
 
-	$aEnvoyer = $transferts | Where-Object { $_.Partie -eq 'front' } | ForEach-Object {
+	$aEnvoyer = @($transferts | Where-Object { $_.Partie -eq 'front' } | ForEach-Object {
 		$_.Distant.Substring($dossierFront.Length + 1)
-	}
+	})
 	# Garde-fou : un build cassé ou vide ne doit pas vider le site.
 	if ($aEnvoyer.Count -lt 10) {
 		throw "Seulement $($aEnvoyer.Count) fichier(s) dans le build : nettoyage refusé."
 	}
 
-	$distants = Get-RemoteFiles -Path $dossierFront
+	$distants = @(Get-RemoteFiles -Path $dossierFront)
 	# Les fichiers cachés (.htaccess et consorts) ne sont jamais du build : on n'y touche pas.
-	$residuels = $distants | Where-Object { -not $_.Cache -and $_.Relatif -notin $aEnvoyer }
+	$residuels = @($distants | Where-Object { -not $_.Cache -and $_.Relatif -notin $aEnvoyer })
 
 	if (-not $residuels) {
 		Write-Host "  rien à supprimer ($($distants.Count) fichier(s) en place)"
