@@ -12,14 +12,14 @@
 	
 	if ($love) {
 		$ranges = $db->select("
-			SELECT lv.id, CONCAT(p.firstname, ' ', p.lastname) AS title, lv.comment, lv.startDate, lv.endDate, lv.color, p.birthday, CONCAT('http://".$_SERVER['HTTP_HOST']."/lifeBO/images/loves/', lv.id, '.jpg') AS icon
+			SELECT lv.id, CONCAT(p.firstname, ' ', p.lastname) AS title, lv.comment, lv.startDate, lv.endDate, lv.color, p.birthday, CONCAT('https://".$_SERVER['HTTP_HOST']."/lifeBO/images/loves/', lv.id, '.jpg') AS icon
 			FROM love_stories lv
 			INNER JOIN people p
 			ON p.id = lv.idPerson
 			ORDER BY lv.startDate, lv.endDate DESC");
 	} else {
 		$ranges = $db->select("
-			SELECT a.id, a.title, a.comment, a.startDate, a.endDate, s.title AS structure, a.role, a.type, t.name, s.color, p.birthday, CONCAT('http://".$_SERVER['HTTP_HOST']."/lifeBO/images/structures/', s.id, '.jpg') AS icon
+			SELECT a.id, a.title, a.comment, a.startDate, a.endDate, s.title AS structure, a.role, a.type, t.name, s.color, p.birthday, CONCAT('https://".$_SERVER['HTTP_HOST']."/lifeBO/images/structures/', s.id, '.jpg') AS icon
 			FROM activities a
 			LEFT JOIN tags t
 			ON t.id = a.idTag
@@ -49,7 +49,7 @@
 		SELECT c.id, c.title, c.content, c.startDate, c.endDate, c.narrated, $idAssociation AS idAssociation,
 			GROUP_CONCAT(DISTINCT CONCAT(p.id, ':', p.firstname, p.lastname) SEPARATOR ';') AS people,
 			GROUP_CONCAT(DISTINCT CONCAT(t.id, ':', t.name) SEPARATOR ';') AS tags,
-			GROUP_CONCAT(DISTINCT CONCAT(t.name, '|http://".$_SERVER['HTTP_HOST']."/lifeBO/images/tags/', t.icon, '.png') ORDER BY ct.priority SEPARATOR ',') AS tags
+			GROUP_CONCAT(DISTINCT CONCAT(t.name, '|https://".$_SERVER['HTTP_HOST']."/lifeBO/images/tags/', t.icon, '.png') ORDER BY ct.priority SEPARATOR ',') AS tags
 		FROM chapters c
 		LEFT JOIN (chapter_people cp
 			INNER JOIN people p

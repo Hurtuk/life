@@ -11,7 +11,7 @@ export class InsertPicsPipe implements PipeTransform {
       .replace(/<p>(\[[^<]*\])<\/p>/gi, "<div class=\"photos\">$1</div>")
       .replace(
         /\[img ([a-zA-Z0-9]+\.[a-zA-Z]{3,4})\]/gi,
-        "<img src=\"http://louiecinephile.fr/lifeBO/images/medias/$1\" />"
+        "<img src=\"https://louiecinephile.fr/lifeBO/images/medias/$1\" />"
       );
   }
 
