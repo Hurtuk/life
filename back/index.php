@@ -338,6 +338,8 @@
 			transition: background .12s;
 		}
 
+		.item[hidden] { display: none; }
+
 		.item:hover { background: var(--paper); }
 
 		.item.current {
