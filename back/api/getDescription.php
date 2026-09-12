@@ -21,7 +21,7 @@
 				ORDER BY lv.startDate, lv.endDate DESC");
 		} else {
 			$ranges = $db->select("
-				SELECT a.id, a.title, a.comment, a.startDate, a.endDate, s.title AS structure, a.role, a.type, t.name, s.color, p.birthday, CONCAT('https://".$_SERVER['HTTP_HOST']."/lifeBO/images/structures/', s.id, '.jpg') AS icon
+				SELECT a.id, a.title, a.comment, a.startDate, a.endDate, s.title AS structure, a.role, a.type, t.name, s.color, CONCAT('https://".$_SERVER['HTTP_HOST']."/lifeBO/images/structures/', s.id, '.jpg') AS icon
 				FROM activities a
 				LEFT JOIN tags t
 				ON t.id = a.idTag
