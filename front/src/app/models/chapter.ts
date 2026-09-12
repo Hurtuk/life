@@ -11,4 +11,5 @@ export class Chapter {
     people: Person[];
     tags: Tag[];
     idAssociation: number;
+    level: number;
 }

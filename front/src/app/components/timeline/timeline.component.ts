@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Chapter } from 'src/app/models/chapter';
 import { Displayable } from 'src/app/models/displayable';
 import { Range } from 'src/app/models/range';
@@ -8,9 +8,16 @@ import { Range } from 'src/app/models/range';
 	templateUrl: './timeline.component.html',
 	styleUrls: ['./timeline.component.scss']
 })
-export class TimelineComponent implements OnInit {
+export class TimelineComponent implements OnInit, AfterViewInit {
 
 	private MONTHS = ['jan', 'fév', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sep', 'oct', 'nov', 'déc'];
+
+	/** Largeur occupée par une vignette, date comprise. */
+	private CHAPTER_WIDTH = 44;
+	/** Distance entre la frise et la première rangée de vignettes. */
+	private CHAPTER_TOP = 40;
+	/** Décalage vertical d'une rangée de vignettes à la suivante. */
+	private CHAPTER_STEP = 46;
 
 	@Input() data: {
 		ranges: Range[];
@@ -22,14 +29,21 @@ export class TimelineComponent implements OnInit {
 	@Output() selectItem = new EventEmitter<Displayable>();
 	public selected?: Range | Chapter;
 
+	@ViewChild('wrapper') private wrapper: ElementRef<HTMLElement>;
+
 	public maxLevel = 0;
 
 	public activatedChapter?: Chapter = null;
+
+	/** Hauteur réservée aux vignettes, rangées du quinconce comprises. */
+	public chaptersHeight = 0;
 
 	private startDate: Date;
 	private endDate: Date;
 
 	private days = 0;
+
+	constructor(private changeDetector: ChangeDetectorRef) { }
 
 	ngOnInit() {
 		if (!this.displayRole) {
@@ -43,6 +57,18 @@ export class TimelineComponent implements OnInit {
 		this.days = this.timeToDays(this.endDate.getTime() - this.startDate.getTime());
 
 		this.calculateRangesLevels();
+	}
+
+	ngAfterViewInit() {
+		// Le quinconce se calcule en pixels : il lui faut la largeur réelle du
+		// conteneur, connue seulement une fois la vue en place.
+		this.calculateChaptersLevels();
+		this.changeDetector.detectChanges();
+	}
+
+	@HostListener('window:resize')
+	public onResize() {
+		this.calculateChaptersLevels();
 	}
 
 	public selectRange(r: Range) {
@@ -114,6 +140,41 @@ export class TimelineComponent implements OnInit {
 		}
 		res.push(newYear);
 		return res;
+	}
+
+	/** Position verticale d'une vignette, selon sa rangée de quinconce. */
+	public chapterDrop(c: Chapter): number {
+		return this.CHAPTER_TOP + (c.level ?? 0) * this.CHAPTER_STEP;
+	}
+
+	/**
+	* Répartit les vignettes en quinconce : chacune descend d'une rangée tant
+	* qu'elle empiéterait sur la précédente de la rangée visée. Deux chapitres
+	* à quelques jours d'écart ne se superposent donc plus.
+	*/
+	private calculateChaptersLevels() {
+		if (!this.data.chapters || !this.wrapper) {
+			return;
+		}
+		const width = this.wrapper.nativeElement.clientWidth;
+		if (!width) {
+			return;
+		}
+		// Bord droit déjà occupé, une entrée par rangée.
+		const rows: number[] = [];
+		let maxLevel = 0;
+		const chapters = [...this.data.chapters].sort((c1, c2) => c1.startDate.getTime() - c2.startDate.getTime());
+		for (const c of chapters) {
+			const left = this.getPercent(c.startDate) * width / 100;
+			let level = 0;
+			while (level < rows.length && rows[level] > left) {
+				level++;
+			}
+			rows[level] = left + this.CHAPTER_WIDTH;
+			c.level = level;
+			maxLevel = Math.max(maxLevel, level);
+		}
+		this.chaptersHeight = this.chapterDrop({ level: maxLevel } as Chapter) + this.CHAPTER_STEP;
 	}
 
 	private timeToDays(time: number) {

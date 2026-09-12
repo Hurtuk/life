@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" #wrapper>
     <div class="ranges" [style.height.px]="(maxLevel + 1) * 22" [attr.data-levels]="maxLevel + 1">
         <div class="range"
             *ngFor="let r of data.ranges"
@@ -29,9 +29,10 @@
             </div>
         </ng-container>
     </div>
-    <div class="chapters" *ngIf="data.chapters">
+    <div class="chapters" *ngIf="data.chapters" [style.height.px]="chaptersHeight">
         <div class="chapter"
             *ngFor="let c of data.chapters"
+            [style]="'--drop: ' + chapterDrop(c) + 'px'"
             [style.left.%]="getPercent(c.startDate)"
             [class.text]="c.narrated"
             [attr.association]="c.idAssociation"

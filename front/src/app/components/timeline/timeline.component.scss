@@ -198,18 +198,20 @@ $line-height: 6px;
 }
 
 .chapter {
+    // Rangée de quinconce, calculée en pixels par le composant.
+    --drop: 40px;
     position: absolute;
     width: 32px;
     text-align: center;
     font-family: $secondary-font;
     font-size: .75em;
-    top: 40px;
+    top: var(--drop);
     margin-left: -10px;
 
     &::before {
         content: '';
         display: block;
-        height: 40px;
+        height: var(--drop);
         border-left: 2px dashed $line-color;
         position: absolute;
         bottom: 100%;
