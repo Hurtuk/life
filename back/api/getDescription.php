@@ -7,27 +7,29 @@
 	$love = $type == 'love';
 	$activity = $type == 'range';
 	$chapter = $type == 'chapter';
+	$unclassified = $type == 'unclassified';
 
     global $db;
 	
-	if ($love) {
-		$ranges = $db->select("
-			SELECT lv.id, CONCAT(p.firstname, ' ', p.lastname) AS title, lv.comment, lv.startDate, lv.endDate, lv.color, p.birthday, CONCAT('https://".$_SERVER['HTTP_HOST']."/lifeBO/images/loves/', lv.id, '.jpg') AS icon
-			FROM love_stories lv
-			INNER JOIN people p
-			ON p.id = lv.idPerson
-			ORDER BY lv.startDate, lv.endDate DESC");
-	} else {
-		$ranges = $db->select("
-			SELECT a.id, a.title, a.comment, a.startDate, a.endDate, s.title AS structure, a.role, a.type, t.name, s.color, p.birthday, CONCAT('https://".$_SERVER['HTTP_HOST']."/lifeBO/images/structures/', s.id, '.jpg') AS icon
-			FROM activities a
-			LEFT JOIN tags t
-			ON t.id = a.idTag
-			INNER JOIN structures s
-			ON s.id = a.idStructure
-			".(isset($type) ? "WHERE type LIKE '$type'" : "")."
-			ORDER BY a.startDate, a.endDate DESC");
-	}
+	if (!$unclassified) {
+		if ($love) {
+			$ranges = $db->select("
+				SELECT lv.id, CONCAT(p.firstname, ' ', p.lastname) AS title, lv.comment, lv.startDate, lv.endDate, lv.color, p.birthday, CONCAT('https://".$_SERVER['HTTP_HOST']."/lifeBO/images/loves/', lv.id, '.jpg') AS icon
+				FROM love_stories lv
+				INNER JOIN people p
+				ON p.id = lv.idPerson
+				ORDER BY lv.startDate, lv.endDate DESC");
+		} else {
+			$ranges = $db->select("
+				SELECT a.id, a.title, a.comment, a.startDate, a.endDate, s.title AS structure, a.role, a.type, t.name, s.color, p.birthday, CONCAT('https://".$_SERVER['HTTP_HOST']."/lifeBO/images/structures/', s.id, '.jpg') AS icon
+				FROM activities a
+				LEFT JOIN tags t
+				ON t.id = a.idTag
+				INNER JOIN structures s
+				ON s.id = a.idStructure
+				".(isset($type) ? "WHERE type LIKE '$type'" : "")."
+				ORDER BY a.startDate, a.endDate DESC");
+		}
 			
 		$rangeIds = join(",", array_map(function($e) { return $e['id']; }, $ranges));
 		
