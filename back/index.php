@@ -581,6 +581,7 @@
 						</button>
 					<?php } ?>
 				</form>
+				<p class="empty" hidden>Aucun résultat.</p>
 			</aside>
 
 			<form method="post" action="" class="editor card">
@@ -663,6 +664,7 @@
 						</button>
 					<?php } ?>
 				</form>
+				<p class="empty" hidden>Aucun résultat.</p>
 			</aside>
 
 			<form method="post" action="" class="editor card">
@@ -769,11 +771,15 @@
 
 		document.querySelectorAll('[data-filter]').forEach(function (champ) {
 			var liste = document.getElementById(champ.getAttribute('data-filter'));
+			var vide = liste.parentNode.querySelector('.empty');
 			champ.addEventListener('input', function () {
 				var recherche = normaliser(champ.value.trim());
+				var visibles = 0;
 				liste.querySelectorAll('.item').forEach(function (item) {
 					item.hidden = recherche !== '' && normaliser(item.textContent).indexOf(recherche) === -1;
+					if (!item.hidden) { visibles++; }
 				});
+				vide.hidden = visibles > 0;
 			});
 		});
 
